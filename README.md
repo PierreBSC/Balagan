@@ -10,7 +10,7 @@ Balagan is an R-package dedicated to the study of large-scale Multiplexed Imagin
 Balagan is based on the **SingleCellExperiment** object structure and is therefore compatible with a variety of other single-cell analysis tools.
 This package is aimed to provide advanced and robust statistical tool for the analysis of MI and therefore I **strongly recommend** the user to read all the mathematical papers mentionned in the documentation.
 
-People interested in spatial sampling can read our [biorxiv paper](https://www.biorxiv.org/content/10.1101/2021.11.28.470262v2) and can have a look at the full tutorial associated [here](https://github.com/BodenmillerGroup/Balagan/blob/main/Tutorial_sampling.md) on how to use Balagan for spatial sampling analysis.
+People interested in spatial sampling can read our [biorxiv paper](https://www.biorxiv.org/content/10.1101/2021.11.28.470262v2) and can have a look at the full tutorial associated [here](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_sampling.md) on how to use Balagan for spatial sampling analysis.
 
 
 # Installation
