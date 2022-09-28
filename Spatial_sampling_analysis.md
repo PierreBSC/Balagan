@@ -1,1 +1,0 @@
-##Spatial sampling analysis
