@@ -25,7 +25,7 @@ devtools::install_local("Path/to/balagan_0.1.tar.gz",dependencies = T)
 It can also be installed using devtools :
 
 ```r
-devtools::install_github("BodenmillerGroup/Balagan")
+devtools::install_github("PierreBSC/Balagan")
 ```
 
 
