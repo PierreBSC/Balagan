@@ -1,4 +1,4 @@
-#Stratified spatial sampling analysis
+# Stratified spatial sampling analysis
 
 This tutorial describes how to perform simuate stratified spatial sampling on a piece of tissue. I strongly recommend the user to familiarize with the stratified sampling approach by reader the excellent book by Cochran "Sampling Techniques, Third edition". 
 
@@ -7,7 +7,7 @@ To perform a stratified sampling, two elements will be needed :
 - A .tiff file, corresponding to the intensity of a marker over the whole piece of tissue.  
 
 
-##Loading and processing of the data
+## Loading and processing of the data
 
 We start by loading the required packages :
 
@@ -37,7 +37,7 @@ sce$Location_Center_Y = Y
 sce$Location_Center_Y = max(sce$Location_Center_Y)-sce$Location_Center_Y
 ```
 
-##Computing the optimal stratification
+## Computing the optimal stratification
 
 We now compute the threshold values that we will use to segment the image. Here we will use 6 different strata (using more usually does not improve the quality of the sampling, cf Cochran book) :
 
@@ -56,7 +56,7 @@ for (h in 1:N_strata) {
 ```
 
 
-##Estimating the contribution of each stratum to global cell composition (optional)
+## Estimating the contribution of each stratum to global cell composition (optional)
 
 
 We now need to know what is the proportion of cells in each stratum to correctly infer the global cell composition. One solution is to use the area of each individual stratum, however due to the un-even cell density across strata we recommend to use a nuclear channel (DAPI, Histone, Iridium...) and compute the total signal. Here we will use an histone antibody signal :
