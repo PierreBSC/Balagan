@@ -32,5 +32,6 @@ devtools::install_github("PierreBSC/Balagan")
 As mentionned above, Balagan can be used to perform various tasks and comprehensive tutorials have been written for each of them:
 - [Basic MI data processing](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_data_processing.md)
 - [Basic spatial sampling analysis](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_sampling.md) and the corresponding guide for [Visium data processing](https://github.com/PierreBSC/Balagan/blob/main/Processing_Visium_data.md)
+- [Stratified spatial sampling tutorial](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_stratified_sampling.md)
 
 
