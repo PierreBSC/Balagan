@@ -17,7 +17,7 @@ Scripts initially written for this [biorxiv paper](https://www.biorxiv.org/conte
 Balagan can be installed from the source file :
 
 ```r
-install.packages(c("devtools","pheatmap","rTensor","spatgraphs","statmod"))
+install.packages(c("devtools","pheatmap","rTensor","spatgraphs","statmod","imager"))
 devtools::install_local("Path/to/balagan_0.1.tar.gz",dependencies = T)
 ```
 
