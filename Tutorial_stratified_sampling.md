@@ -71,6 +71,23 @@ H3K9_image= imrotate(H3K9_image,angle = -90)
 H3K9ac_stratum_signal = aggregate(as.numeric(H3K9_image),FUN = sum,by=list(as.numeric(MVS_thresholded_image)))
 H3K9ac_stratum_signal = H3K9ac_stratum_signal$x
 H3K9ac_stratum_signal_normalised = H3K9ac_stratum_signal/sum(H3K9ac_stratum_signal)
-
 ```
+
+
+## Performing a proportional stratified sampling 
+
+We can now perform the stratified sampling itsefl. We will sample in total 10 Field of Views (FoVs) with a width of 100µm. The number of FoV assigned to each stratum will be proportional to the contribution of each stratum, thus corresponding to a proportional stratified sampling. 
+
+
+```r
+N_FoV_per_region = c(1,2,4,1,1,1) #1 Fov for the first stratum, 2 for the second, 4 for the third etc...
+Prop_allocation_sampling = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,
+                                                  FoV_size = 100,N_sampling = 50 ,
+                                                  Weight_strata =H3K9ac_stratum_signal_normalised)
+```
+
+The function should generate a boxplot where the distribution of cell density estimates are shown for each cell type. In addition, the red dots corresponds to the real cell density.
+
+<img src="Screenshot/Stratified_sampling_estimation.png" alt="Stratified_sampling_estimation" width='400'> 
+
 
