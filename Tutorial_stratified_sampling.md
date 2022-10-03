@@ -1,6 +1,6 @@
 # Stratified spatial sampling analysis
 
-This tutorial describes how to perform simuate stratified spatial sampling on a piece of tissue. I strongly recommend the user to familiarize with the stratified sampling approach by reader the excellent book by Cochran "Sampling Techniques, Third edition". 
+This tutorial describes how to perform simuate stratified spatial sampling on a piece of tissue. I strongly recommend the users to familiarize themselve with the stratified sampling approach by reader the excellent book by Cochran "Sampling Techniques, Third edition". 
 
 To perform a stratified sampling, two elements will be needed :
 - A SingleCellExperiment object, obtained by using balagan to process MI data.
