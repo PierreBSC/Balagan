@@ -18,7 +18,7 @@ library(imager)
 
 ```
 
-Now we load the tiff file (here the intensity of the CD20 B-cell marker) :
+Now we load the tiff file (here the intensity of the CD45 pan-immune cell marker) :
 
 ```r
 raw_Image = readTIFF("Smoothed_image_CD20.tiff")
