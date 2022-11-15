@@ -14,6 +14,8 @@ We start by loading the required packages :
 ```r
 library(balagan)
 library(tiff)
+library(imager)
+
 ```
 
 Now we load the tiff file (here the intensity of the CD20 B-cell marker) :
