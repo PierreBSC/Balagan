@@ -57,6 +57,12 @@ for (h in 1:N_strata) {
 }
 ```
 
+The results of the image stratification can easily be visualized :
+
+```r
+plot(MVS_thresholded_image)
+```
+
 
 ## Estimating the contribution of each stratum to global cell composition (optional)
 
@@ -64,7 +70,7 @@ for (h in 1:N_strata) {
 We now need to know what is the proportion of cells in each stratum to correctly infer the global cell composition. One solution is to use the area of each individual stratum, however due to the un-even cell density across strata we recommend to use a nuclear channel (DAPI, Histone, Iridium...) and compute the total signal. Here we will use an histone antibody signal :
 
 ```r
-#Loading the image
+#Loading the image of the nuclear channel
 H3K9_image = readTIFF("Desktop/Statistical_modeling_project/Stratified_sampling/Smoothed_image_H3K9ac.tiff")
 H3K9_image = as.cimg(H3K9_image)
 H3K9_image= imrotate(H3K9_image,angle = -90)
