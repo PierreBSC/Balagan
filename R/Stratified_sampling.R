@@ -55,7 +55,7 @@ Stratified_sampling = function(Thresholded_image,sce,N_FoV_per_region,FoV_size =
     print(i)
     
     for (k in 1:length(List_strata)) {
-      Position_sampling = Region_guided_sampling(MVS_thresholded_image,
+      Position_sampling = Region_guided_sampling(Thresholded_image,
                                                  Selected_region = List_strata[k],
                                                  N_FoV = N_FoV_per_region[k],FoV_size = FoV_size,show_plot = F)
       
