@@ -21,8 +21,8 @@ Region_guided_sampling = function(Segmentation_image,Selected_regions=1,N_FoV=1,
   
   List_coordinate = c()
   
-  Im_width = imager::width(raw_Image)
-  Im_height = imager::height(raw_Image)
+  Im_width = imager::width(Segmentation_image)
+  Im_height = imager::height(Segmentation_image)
   Segmentation_image_temp = Segmentation_image==Selected_regions
   Segmentation_image_temp = as.cimg(Segmentation_image_temp)
   
