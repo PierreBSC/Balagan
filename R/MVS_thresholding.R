@@ -29,7 +29,7 @@ MVS_thresholding = function(x,L=6,distribution="beta") {
     beta_parameter = coef(fit_marker_distribution)[2]
     
     Vector_threshold = Get_MVS_threshold_beta_distribution(L = L,alpha_parameter,beta_parameter)
-    hist(as.numeric(raw_Image),100,xaxs='i',yaxs='i',cex.lab=1.3,freq=F,xlab="Marker intensity",main="MVS thresholding")
+    hist(as.numeric(x),100,xaxs='i',yaxs='i',cex.lab=1.3,freq=F,xlab="Marker intensity",main="MVS thresholding")
     curve(dbeta(x = x,shape1 = coef(fit_marker_distribution)[1],shape2 = coef(fit_marker_distribution)[2]),add = T,lwd=2,from=0,to=1)
     abline(v=Vector_threshold,lwd=2,lty=2,col="red")
     
