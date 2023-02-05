@@ -1,4 +1,4 @@
-# Balagan (בלגן)
+# Balagan (בלאגן)
 
 Balagan is an R-package dedicated to the study of large-scale Multiplexed Imaging (MI) datasets. It contains several tools allowing to :
 
