@@ -77,7 +77,6 @@ We can now perform a simple simulation of sampling. If for instance we want to s
 Random_spatial_sampling(sce,width_FOV = 400,height_FOV = 400,N_samplings = 10)
 ```
 
-<img src="Screenshot/Example_random_sampling.png" alt="Example_random_sampling.png" width='400'> 
 
 
 If the code works, a real analysis can now be performed :
@@ -95,7 +94,6 @@ The result of the analysis can easily be plotted and the fitting of the exponent
 Visualize_simple_sampling(Simple_sampling_analysis)
 ```
 
-<img src="Screenshot/Example_tau_fitting.jpg" alt="Example_tau_fitting.jpg" width='400'> 
 
 
 We can now try to extract the 𝛂 parameter. To do so we have to compute the tau parameter for different size of FoVs. Here we perform sampling with FoV of size ranging from 200µm to 600µm : 
@@ -122,7 +120,6 @@ Parameter_table = data.frame(Height =height_vector,
 Fitting_tau = Visualize_complex_sampling(Complex_sampling,Parameter_table)
 ```
 
-<img src="Screenshot/Effect_width_tau.jpg" alt="Effect_width_tau.jpg" width='550'> 
 
 Last but not least we can plot and estimate the relation between tau and the FoV width :
 
@@ -134,7 +131,6 @@ m = lm(log10(Fitting_tau[,"tau"])~log10(FoV_width))
 abline(coef(m),lwd=2,lty=2,col="grey")
 print(coef(m))
 ```
-<img src="Screenshot/Alpha_regression.jpg" alt="Alpha_regression.jpg" width='400'> 
 
 
 The slope coefficient of the linear model corresponds to the 𝛂 coefficient while the intercept is the technology/panel dependant parameter termed **C** in the manuscript !

@@ -109,8 +109,7 @@ We can now perform a simple simulation of sampling. If for instance we want to s
 Random_spatial_sampling(sce,width_FOV = 400,height_FOV = 400,N_samplings = 10)
 ```
 
-<img src="Screenshot/Example_random_sampling.png" alt="Example_random_sampling.png" width='400'> 
-
+ ![image alt text](Screenshot/Example_random_sampling.png)
 
 If the code works, a real analysis can now be performed :
 
