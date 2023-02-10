@@ -10,7 +10,7 @@ Balagan is an R-package dedicated to the study of large-scale Multiplexed Imagin
 Balagan is based on the **SingleCellExperiment** object structure and is therefore compatible with a variety of other single-cell analysis tools.
 This package is aimed to provide advanced and robust statistical tool for the analysis of MI and therefore I **strongly recommend** the user to read all the mathematical papers mentionned in the documentation.
 
-Scripts initially written for our [Nature Method paper](www.nature.com/articles/s41592-022-01692-z) have been integrated to this package.
+Scripts initially written for our [Nature Method paper](https://www.nature.com/articles/s41592-022-01692-z) have been integrated to this package.
 
 # Installation
 
