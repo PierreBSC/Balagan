@@ -1,4 +1,4 @@
-<img src="Screenshot/Balagan_name.jpeg" alt="Balagan_name.jpeg" width='500'> | <img src="Screenshot/Logo_v1.jpeg" alt="Logo_v1.jpeg" width='200'>
+<img src="Screenshot/Balagan_name.jpeg" alt="Balagan_name.jpeg" width='500'> |            <img src="Screenshot/Logo_v1.jpeg" alt="Logo_v1.jpeg" width='200'>
 
 Balagan is an R-package dedicated to the study of large-scale Multiplexed Imaging (MI) datasets. It contains several tools allowing to :
 
