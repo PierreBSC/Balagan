@@ -4,8 +4,9 @@ Balagan is an R-package dedicated to the study of large-scale Multiplexed Imagin
 
 - Normalize and process the original data, i.e transforming and clustering the data.
 - Infer the best parameters for an optimal spatial sampling strategy.
-- Vizualise the data with various plotting functions.
-- Study and quantify cell-cell interactions using various interaction scores derived from the spatial point pattern theory and tensor decomposition approaches.
+- Perform statistically powerful differential abundance analysis.
+- Simulate stratified sampling using large multiplexed imaging panorama.
+
 
 Balagan is based on the **SingleCellExperiment** object structure and is therefore compatible with a variety of other single-cell analysis tools.
 This package is aimed to provide advanced and robust statistical tool for the analysis of MI and therefore I **strongly recommend** the user to read all the mathematical papers mentionned in the documentation.
