@@ -20,6 +20,7 @@ Imports:
     aod,
     dbscan,
     doParallel,
+    FactoMineR,
     fitdistrplus,
     foreach,
     geometry,
