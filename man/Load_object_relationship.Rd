@@ -3,7 +3,7 @@
 \name{Load_object_relationship}
 \alias{Load_object_relationship}
 \title{Loads an object relation csv file produced by the ImcSegmentationPipeline
-  (https://github.com/BodenmillerGroup/ImcSegmentationPipeline)}
+(https://github.com/BodenmillerGroup/ImcSegmentationPipeline)}
 \usage{
 Load_object_relationship(sce, Path_to_object_relationship)
 }

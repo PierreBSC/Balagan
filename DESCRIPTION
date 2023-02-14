@@ -1,33 +1,41 @@
 Package: balagan
-Version: 0.1
-Date: 2021-03-16
-Title: Methods for imaging mass cytometry data analysis
-Description: 
-    This package contains functions for the low level and spatial analysis of IMC data as well as spatial ecology tools adapted for multiplexed imaging data.  
+Title: Statistical analysis of multiplexed imaging data
+Version: 1.0.0
 Authors@R: 
-    c(person("Nils", "Eling", role = c("aut", "ctb"), email = "nils.eling@uzh.ch"),
-       person("Pierre", "Bost", role = c("aut", "cre"), email = "pierre.bost@uzh.ch"))
-License: GPL (>= 2)
-Depends:
-    R (>= 4.0.3),
-    SingleCellExperiment
-Imports:
-    N2R,
-    doParallel,
-    foreach,
-    igraph,
-    readr,
-    geometry,
-    dbscan,
-    uwot,
-    FactoMineR,
-    RColorBrewer
-Suggests:
-    Matrix,
-    colorRamp
-biocViews: ImmunoOncology, Software, SingleCell, 
-VignetteBuilder: knitr
-URL: https://github.com/BodenmillerGroup/imcRtools
-BugReports: https://github.com/BodenmillerGroup/imcRtools/issues
-RoxygenNote: 7.1.1
+    person("Pierre", "Bost", , "pierre.bost@uzh.ch", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1498-9385"))
+Description: Balagan is an R-package dedicated to the statistical analysis
+    of Multiplexed Imaging (MI) datasets.  It contains several tools
+    allowing to infer the best parameters for an optimal spatial sampling
+    strategy, perform statistically powerful differential abundance
+    analysis and simulate stratified sampling using large multiplexed
+    imaging panorama
+License: MIT + file LICENSE
+URL: https://github.com/PierreBSC/Balagan
 Encoding: UTF-8
+Language: en
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    aod,
+    dbscan,
+    doParallel,
+    fitdistrplus,
+    foreach,
+    geometry,
+    igraph,
+    imager,
+    MASS,
+    Matrix,
+    N2R,
+    pheatmap,
+    RColorBrewer,
+    readr,
+    rTensor,
+    S4Vectors,
+    SingleCellExperiment,
+    spatgraphs,
+    spatstat,
+    statmod,
+    uwot,
+    zipfR
