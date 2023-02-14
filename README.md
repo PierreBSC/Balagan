@@ -1,6 +1,6 @@
 <img src="Screenshot/Balagan_name.jpeg" alt="Balagan_name.jpeg" width='500'>             <img src="Screenshot/Logo_v1.jpeg" alt="Logo_v1.jpeg" width='200' align="right">
 
-Balagan is an R-package dedicated to the study of large-scale Multiplexed Imaging (MI) datasets. It contains several tools allowing to :
+Balagan is an R-package dedicated to the statistical analysis of Multiplexed Imaging (MI) datasets. It contains several tools allowing to :
 
 - Normalize and process the original data, i.e transforming and clustering the data.
 - Infer the best parameters for an optimal spatial sampling strategy.
