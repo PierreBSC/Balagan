@@ -32,7 +32,7 @@ Before performing any analysis using Balagan, we strongly recommend you to be fa
 - Our [paper](https://www.nature.com/articles/s41592-022-01692-z) on random sampling.
 - Our new [biorxiv preprint]() on the statistical modeling of cell count data obtained by multiplexed imaging.
 - The [mathematical notes](https://github.com/PierreBSC/Balagan/blob/main/Multiplexed_imaging_statistics.pdf) associated with our new preprint.
-- The 
+- For an introduction to Generalized Linear Models, chapter 4 of ["An Introduction to Statistical Learning"](https://www.statlearning.com).
 - The excellent textbook on spatial point pattern ["Statistical analysis and modelling of spatial point patterns"](https://scholar.google.com/scholar_lookup?&title=Statistial%20analysis%20and%20modelling%20of%20spatial%20point%20patterns&publication_year=2008&author=Ilian%2CJ&author=Penttinen%2CA&author=Stoyan%2CH&author=Stoyan%2CD). While reading the 557 pages of this book is not necesseray, key notions (comlplete spatial randomness, homogenous poisson point pattern...) are explained in a simple yet rigorous manner in this book
 
 # List of tutorials
