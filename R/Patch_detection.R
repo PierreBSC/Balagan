@@ -179,7 +179,7 @@ Patch_detection = function(sce,graph_type = "KNN",graph_parameter = NULL,neighbo
       Clustering_final[Clustering_final%in%clusters_to_filter] = 0
       
       plot.igraph(Graph_cuted,layout = as.matrix(Location_points),vertex.label=NA,vertex.size=2,
-                  edge.width = E(Graph_cuted)$weight,vertex.color=string.to.colors(Clustering_final))
+                  edge.width = E(Graph_cuted)$weight,vertex.color=.cluster_to_color(Clustering_final))
       
 
     }
