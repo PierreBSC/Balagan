@@ -9,7 +9,7 @@
 #' @examples
 #' MD_tensor = MD_index_tensor(sce)
 #' @import SingleCellExperiment
-#' @import spatstat
+#' @import spatstat.geom
 #' @import rTensor
 #' @import doParallel
 #' @import foreach

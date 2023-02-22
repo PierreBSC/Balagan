@@ -8,7 +8,7 @@
 #' @examples
 #' Dixon_tensor = Dixon_interaction_tensor(sce)
 #' @import SingleCellExperiment
-#' @import spatstat
+#' @import spatstat.geom
 #' @import rTensor
 #' @import doParallel
 #' @import foreach

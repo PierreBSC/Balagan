@@ -9,7 +9,7 @@
 #' @return Returns the bivariate Clark-Evans Index for this pair of point pattern.
 #' @examples
 #' CE_interaction = Compute_bivariate_CE_index(X_pattern,Y_pattern,k = k_parameter)
-#' @import spatstat
+#' @import spatstat.geom
 #' @export
 
 
@@ -22,7 +22,7 @@ Compute_bivariate_CE_index = function(X_pattern,Y_pattern,k_parameter = 1) {
   Mean_distance = mean(NN_distance$dist)
   
   #Theoretical disrtibution
-  Lambda_2 = Y_pattern$n / spatstat::area(Y_pattern)
+  Lambda_2 = Y_pattern$n / area(Y_pattern)
   Mean_distance_theo = 1/(2*sqrt(Lambda_2))
   Variance_theo = (4-pi)/(4*Lambda_2*pi*X_pattern$n)
   
