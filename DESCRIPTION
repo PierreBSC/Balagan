@@ -36,7 +36,7 @@ Imports:
     S4Vectors,
     SingleCellExperiment,
     spatgraphs,
-    spatstat,
+    spatstat(>= 3.0.0),
     statmod,
     uwot,
     zipfR
