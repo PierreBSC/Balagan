@@ -109,7 +109,7 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
       Proportion_FoV_assignments = Cell_fraction_per_strata
     }
     
-    N_FoV_per_region = smart.round(x = Proportion_FoV_assignments*N_FoV)
+    N_FoV_per_region = smart_round(x = Proportion_FoV_assignments*N_FoV)
     
     #Finally perfoming the stratification
     Sampling_temp = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = FoV_size,
