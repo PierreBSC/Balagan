@@ -107,7 +107,7 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     
     #Finally perfoming the stratification
     Sampling_temp = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = FoV_size,
-                                        N_sampling = 50 ,Weight_strata =Proportion_FoV_assignments)
+                                        N_sampling = N_simulations ,Weight_strata =Proportion_FoV_assignments)
     colnames(Sampling_temp) = paste("Cluster_",colnames(Sampling_temp),sep = "")
     rownames(Sampling_temp) = paste("Simulation",1:nrow(Sampling_temp),sep = "_")
     
