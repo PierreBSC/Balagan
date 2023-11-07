@@ -105,6 +105,17 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     }
     
     N_FoV_per_region = smart_round(x = Proportion_FoV_assignments*N_FoV)
+    #Checking that each stratum is sampled at least once
+    if (sum(N_FoV_per_region==0)>0) {
+      Empty_slot = which(N_FoV_per_region==0)
+      N_FoV_per_region_unrounded = Proportion_FoV_assignments*N_FoV
+      for (i in 1:length(Empty_slot)) {
+        N_FoV_per_region[Empty_slot[i]] = 1
+        N_FoV_per_region[which.max(N_FoV_per_region_unrounded)] = N_FoV_per_region[which.max(N_FoV_per_region_unrounded)]-1
+        N_FoV_per_region_unrounded[which.max(N_FoV_per_region_unrounded)] = N_FoV_per_region_unrounded[which.max(N_FoV_per_region_unrounded)]-1
+        
+      }
+    }
     
     #Finally perfoming the stratification
     Sampling_temp = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = FoV_size,
