@@ -39,6 +39,8 @@ Perform_stratified_sampling_simulation(
 \item{Fov_size}{Size (i.e width/height) of the square FoVs}
 
 \item{specific_channel}{which channels should be tested for stratified sampling ? If not provided all channels will be used}
+
+\item{Parallel_computing}{should the different sampling be performed in parallel ? Boolean.}
 }
 \value{
 A list of table, each table corresponding to a different stratified sampling

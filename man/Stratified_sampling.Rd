@@ -11,7 +11,9 @@ Stratified_sampling(
   FoV_size = 100,
   N_sampling = 50,
   Weight_strata = NULL,
-  List_strata = NULL
+  List_strata = NULL,
+  Parallel_computing = FALSE,
+  name_stratifying_marker = NULL
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ Stratified_sampling(
 \item{Weight_strata}{numeric vector that must sum to 1, corresponding to the contribution of each stratum to the general tissue composition.}
 
 \item{List_strata}{(optional) character or numeric vector. Ordered list of the stratum names.}
+
+\item{Parallel_computing}{should the different sampling be performed in parallel ? Boolean.}
+
+\item{name_stratifying_marker}{Name of the gene used for the stratification. Not essential, only for visualisation purpose}
 }
 \value{
 Returns a table with the estimated cell density for each cell type and each simulation
