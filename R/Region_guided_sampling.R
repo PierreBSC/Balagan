@@ -33,9 +33,20 @@ Region_guided_sampling = function(Segmentation_image,Selected_regions=1,N_FoV=1,
     
     #Where can we take a FOV of a sufficient size ?
     DT_prob_map = DT_temp
-    DT_prob_map[DT_prob_map<FoV_size/2]=0
-    DT_prob_map = as.matrix(DT_prob_map)
-    DT_prob_map = DT_prob_map/sum(DT_prob_map)
+    
+    if (sum(DT_prob_map<FoV_size/2)>0) {
+      DT_prob_map[DT_prob_map<FoV_size/2]=0
+      DT_prob_map = as.matrix(DT_prob_map)
+      DT_prob_map = DT_prob_map/sum(DT_prob_map)
+    }
+    
+    
+    if (sum(DT_prob_map<FoV_size/2)==0) {
+      warning(paste("No space found to put a FoV only in stratum",i, "!"))
+      DT_prob_map = as.matrix(DT_prob_map)
+      DT_prob_map = DT_prob_map/sum(DT_prob_map)
+    }
+    
     #Randomly sampling a location for the FOV
     
     Pixel_in_border = TRUE
