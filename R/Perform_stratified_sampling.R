@@ -12,6 +12,7 @@
 #' @param sigma smoothing parameter  
 #' @param specific_channel which channels should be tested for stratified sampling ? If not provided all channels will be used
 #' @param perform_rotation performing rotation between the sce object and tiff image coordinate 
+#' @param Parallel_computing should the different sampling be performed in parallel ? Boolean.
 #' @param show_plot should the intermediate plots be shown, i.e results of tissue stratification. Boolean.
 #' @return A list of table, each table corresponding to a different stratified sampling 
 #' @import SingleCellExperiment 
@@ -107,7 +108,7 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     
     #Finally perfoming the stratification
     Sampling_temp = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = FoV_size,
-                                        N_sampling = N_simulations ,Weight_strata =Cell_fraction_per_strata)
+                                        N_sampling = N_simulations ,Weight_strata =Cell_fraction_per_strata,Parallel_computing=Parallel_computing,name_stratifying_marker=Panel_data$Target[k])
     colnames(Sampling_temp) = paste("Cluster_",colnames(Sampling_temp),sep = "")
     rownames(Sampling_temp) = paste("Simulation",1:nrow(Sampling_temp),sep = "_")
     
