@@ -22,7 +22,7 @@
 
 
 Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_simulations=30,N_FoV=10,FoV_size=100,type_stratification="Neyman",
-                                                  L=6,sigma=100,specific_channels=NULL,perform_rotation=TRUE,show_plot=TRUE) {
+                                                  L=6,sigma=100,specific_channels=NULL,perform_rotation=TRUE,show_plot=TRUE,Parallel_computing=TRUE) {
   
   #Checking the different parameter values
   if (L<2){
