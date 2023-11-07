@@ -52,7 +52,7 @@ Stratified_sampling = function(Thresholded_image,sce,N_FoV_per_region,FoV_size =
     cat(paste("Creating parallel backend using"),as.character(metadata(sce)$N_core),"cores \n")
     registerDoParallel(metadata(sce)$N_core)
     
-    Stratified_sampling_estimation =foreach(i=colnames(Transformed_data),.combine = rbind) %dopar% {
+    Stratified_sampling_estimation =foreach(i=1:N_sampling,.combine = rbind) %dopar% {
       
       Table_estimation_mu = c()
       
