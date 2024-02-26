@@ -152,13 +152,3 @@ Lastly, as mentionned earlier, the **betabin()** function allows for a variable 
 model_1 = betabin(cbind(y, n - y) ~ ., data = data_BB, random = ~ Variable_1)
 model_0 = betabin(cbind(y, n - y) ~ 1, data = data_BB, random = ~ Variable_1)
 ```
-
-
-
-## Mixed model for clinical cohort analysis (to be released soon...)
-
-
-
-
-
-
