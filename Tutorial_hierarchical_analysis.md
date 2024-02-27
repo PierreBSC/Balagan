@@ -127,3 +127,5 @@ text(-log10(NB_p_value_mixed_corrected[NB_p_value_mixed_corrected<0.05 | BB_p_va
 ```
 
 
+<img src="Screenshot/Test_hierarchical_NB_BB.png" alt="Comparison_NB_BB" width='400'> 
+
