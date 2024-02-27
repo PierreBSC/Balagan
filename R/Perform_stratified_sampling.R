@@ -12,6 +12,8 @@
 #' @param sigma smoothing parameter  
 #' @param specific_channel which channels should be tested for stratified sampling ? If not provided all channels will be used
 #' @param perform_rotation performing rotation between the sce object and tiff image coordinate 
+#' @param type_stratification how should the allocation of FoVs across strata be computed ? Can be "Neyman" or "Proportional" for Neyman/optimal and proportional allocation respectively
+#' @param type_thresholding how should stratum be computed based on the intensity of the covariate ? Can be "Cumsqrt" or "Geometric"
 #' @param Parallel_computing should the different sampling be performed in parallel ? Boolean.
 #' @param show_plot should the intermediate plots be shown, i.e results of tissue stratification. Boolean.
 #' @return A list of table, each table corresponding to a different stratified sampling 
@@ -21,7 +23,7 @@
 #' @export
 
 
-Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_simulations=30,N_FoV=10,FoV_size=100,type_stratification="Neyman",
+Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_simulations=30,N_FoV=10,FoV_size=100,type_stratification="Neyman",type_thresholding="Cumsqrt",
                                                   L=6,sigma=100,specific_channels=NULL,perform_rotation=TRUE,show_plot=TRUE,Parallel_computing=TRUE) {
   
   #Checking the different parameter values
@@ -40,6 +42,11 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
   if (!type_stratification %in% c("Proportional","Neyman")) {
     stop("Please provide a correct type of stratification (Either Neyman or Proportional)")
   }
+  
+  if (!type_thresholding %in% c("Cumsqrt","Geometric")) {
+    stop("Please provide a correct type of thresholding (Either Cumsqrt or Geometric)")
+  }
+  
   
   List_sampling = c()
   
@@ -70,10 +77,11 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     
     #Performing the tissue stratification
     cat("Computing the optimal thresholds...")
-    temp_thresholding = MVS_thresholding(as.numeric(Image_temp_smoothed),L = L)
+    temp_thresholding = Strata_thresholding(as.numeric(Image_temp_smoothed),L = L,type_thresholding=type_thresholding)
+    title(paste("Stratification thresholds for gene",Panel_data$Target[k]))
     MVS_thresholded_image = Image_temp_smoothed
     for (h in 1:L) {
-      MVS_thresholded_image[Image_temp_smoothed>=temp_thresholding[h] & Image_temp_smoothed<temp_thresholding[h+1]]=h
+      MVS_thresholded_image[Image_temp_smoothed>=temp_thresholding[h] & Image_temp_smoothed<=temp_thresholding[h+1]]=h
     }
     
     if (show_plot) {
@@ -81,11 +89,9 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     }
     cat(" done ! \n")
     
-    #Computing the number of cells in each stratum
-    round_cell_position = cbind(round(sce$Location_Center_X),round(sce$Location_Center_Y))
-    Cell_strata_assignment = as.matrix(MVS_thresholded_image)[round_cell_position]
-    Cell_number_per_strata = table(factor(Cell_strata_assignment,levels = 1:L))
-    Cell_fraction_per_strata = as.numeric(Cell_number_per_strata)/sum(Cell_number_per_strata)
+    #Computing the area of each stratum
+    Pixel_number_per_strata = table(factor(MVS_thresholded_image,levels = 1:L))
+    Pixel_fraction_per_strata = as.numeric(Pixel_number_per_strata)/sum(Pixel_number_per_strata)
     
     #Estimating variance
     if (type_stratification=="Neyman") {
@@ -96,12 +102,12 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     #Assigning the number of sampled FoV for each stratum
     
     if (type_stratification=="Neyman") {
-      Proportion_FoV_assignments = sqrt(Estimated_variance)*Cell_fraction_per_strata
+      Proportion_FoV_assignments = sqrt(Estimated_variance)*Pixel_fraction_per_strata
       Proportion_FoV_assignments = Proportion_FoV_assignments/sum(Proportion_FoV_assignments)
     }
     
     if (type_stratification=="Proportional") {
-      Proportion_FoV_assignments = Cell_fraction_per_strata
+      Proportion_FoV_assignments = Pixel_fraction_per_strata
     }
     
     N_FoV_per_region = smart_round(x = Proportion_FoV_assignments*N_FoV)
@@ -119,7 +125,7 @@ Perform_stratified_sampling_simulation = function(sce,tiff_file,panel_file,N_sim
     
     #Finally perfoming the stratification
     Sampling_temp = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = FoV_size,
-                                        N_sampling = N_simulations ,Weight_strata =Cell_fraction_per_strata,Parallel_computing=Parallel_computing,name_stratifying_marker=Panel_data$Target[k])
+                                        N_sampling = N_simulations ,Weight_strata =Pixel_fraction_per_strata,Parallel_computing=Parallel_computing,name_stratifying_marker=Panel_data$Target[k])
     colnames(Sampling_temp) = paste("Cluster_",colnames(Sampling_temp),sep = "")
     rownames(Sampling_temp) = paste("Simulation",1:nrow(Sampling_temp),sep = "_")
     
