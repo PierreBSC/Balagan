@@ -41,6 +41,8 @@ As mentionned above, Balagan can be used to perform various tasks and comprehens
 - [ MI data processing](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_data_processing.md)
 - [Basic spatial sampling analysis](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_sampling.md) and the corresponding guide for [Visium data processing](https://github.com/PierreBSC/Balagan/blob/main/Processing_Visium_data.md)
 - [Differential abundance analysis](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_DA_analysis.md)
+- [Hierarchical differential analysis](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_hierarchical_analysis.md)
 - [Stratified spatial sampling tutorial](https://github.com/PierreBSC/Balagan/blob/main/Tutorial_stratified_sampling.md)
+
 
 
