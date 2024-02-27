@@ -4,96 +4,106 @@ This tutorial describes how to perform a simulated stratified spatial sampling o
 
 To perform a stratified sampling, two elements will be needed :
 - A SingleCellExperiment object, obtained by using our package balagan to process MI data.
-- A .tiff file, corresponding to the intensity of a marker over the whole piece of tissue.  
+- A .tiff file, corresponding to the raw IMC data.
+- A .csv file that describes the antibody panel used to generate the IMC data
+
+The order of the .csv file rows must be coherent with the order of the channels for the tiff file ! We also assume that the panel file contains a column called "Target" that corresponds to the gene name of each channel.
 
 
-## Loading and processing of the data
-
-We start by loading the required packages :
+We first load the required packages and the SingleCellExperiment object 
 
 ```r
-library(balagan)
 library(tiff)
+library(balagan)
 library(imager)
-
+sce = readRDS("path/to/LN_sce.rds)
 ```
 
-We will use in this example a sample of lymph node imaged by Imaging Mass Cytometry from our previous publication (Bost et al. 2022) https://doi.org/10.1038/s41592-022-01692-z
 
-We will first load the tiff file (here the intensity of the CD20 B cell) :
+To be sure that the data are correct we first load the tiff file, plot channel number 10 (CD20, a B-cell marker that should clearly delimitate the different regions of the lymph node) and project the individual cell location colored by cell type from the SCE object.
+
 
 ```r
-raw_Image = readTIFF("./data/Smoothed_image_CD20.tiff")
-raw_Image = as.cimg(raw_Image)
-raw_Image= imrotate(raw_Image,angle = -90)
-plot(raw_Image)
+x =readTIFF("LN_quadrat_analysis/LN_panorama_raw_file.tiff",all = TRUE,as.is = TRUE)
+plot(log(1+as.cimg(x[[10]])))
+points(sce$Location_Center_X,sce$Location_Center_Y,col=string.to.colors(colLabels(sce)),cex=0.1)
 ```
 
-Finally the single-cell object is loaded and the X/Y location data are re-organised to fit the one from the tiff file :
+<img src="Screenshot/LN_structure.png" alt="Stratified_sampling_estimation" width='500'> 
+
+
+We observe a really nice overlap: the data are good and we can launch the stratified sampling.
 
 ```r
-sce=readRDS("./data/Panorama_LN_sce_object.rds")
-#Inverting X/Y axis..
-X = sce$Location_Center_Y
-Y = sce$Location_Center_X
-sce$Location_Center_X = X
-sce$Location_Center_Y = Y
-sce$Location_Center_Y = max(sce$Location_Center_Y)-sce$Location_Center_Y
+Systemic_stratified_sampling = Perform_stratified_sampling_simulation(sce,tiff_file = "LN_quadrat_analysis/LN_panorama_raw_file.tiff",
+                                                                      panel_file="LN_quadrat_analysis/Panel_panorama_1.csv",N_simulations=30,
+                                                                      N_FoV=10,FoV_size=100,type_thresholding = "Cumsqrt",type_stratification="Neyman",specific_channels = NULL,
+                                                                      L=6,sigma=50,perform_rotation=FALSE,show_plot=TRUE,Parallel_computing=TRUE) 
 ```
+Here many options are available :
 
-## Computing the optimal stratification
-
-We now compute the threshold values that we will use to segment the image. Here we will use 6 different strata (using more usually does not improve the quality of the sampling, cf Cochran book) :
-
+- The sce file
+- The path to the .tiff file (**tiff_file**)
+- The path to the panel .csv file (**panel_file**)
+- The number of simulations (N_simulations>=30)
+- The number (**N_FoV**) and size (**FoV_size**) of the Fields of View
+- The type of thresholding (**type_thresholding**), can be "cumsqrt" or "geometric"
+- The allocation strategy of FoVs across strata (**type_stratification**), can be "Neyman" or "Proportional"
+- Which channel to use (**specific_channels**). If not specified or set to NULL all channels will be tested
+- The number of strata (**L**), should not be higher to 6 due to the limited gain and increased computational cost
+- The smoothing parameter to be applied to the raw image (**sigma**)
+- The activation of the parallisation (Parallel_computing). If set to TRUE the number of parallel process corresponds to the N_core parameter of the sce metadata slot. For instance to set it to 10 simply type :
 ```r
-N_strata = 6 
-CD20_thresholding = MVS_thresholding(as.numeric(raw_Image),L = N_strata)
+metadata(sce)$N_core = 10
 ```
+- The plotting option (**show_plot**) which when set to TRUE allows to see all the plots produced during the sampling simulation
 
-We can now create a new image file that where each pixel will be assigned to a stratum :
+
+
+Once the sampling is finished (this can take some time...) we can compute the mean and variance of the estimated cell density :
 
 ```r
-MVS_thresholded_image = raw_Image
-for (h in 1:N_strata) {
-  MVS_thresholded_image[raw_Image>=CD20_thresholding[h] & raw_Image<CD20_thresholding[h+1]]=h
+Mean_population_estimation = c()
+Var_population_estimation = c()
+
+for (k in 1:length(Systemic_stratified_sampling_2)) {
+  u = Systemic_stratified_sampling_2[[k]]
+  Mean_population_estimation = rbind(Mean_population_estimation,colMeans(u))
+  Var_population_estimation = rbind(Var_population_estimation,apply(u,MARGIN = 2,FUN = var))
 }
+rownames(Mean_population_estimation) = Panel_data$Target
+rownames(Var_population_estimation) = Panel_data$Target
 ```
 
-The results of the image stratification can easily be visualized :
+Now we can compare a regular random sampling 
 
 ```r
-plot(MVS_thresholded_image)
+Random_sampling = c()
+for (k in 1:50) {
+  m = Random_spatial_sampling(sce,width_FOV = 100,height_FOV = 100,
+                              N_samplings = 10,Selected_image = 1,plot_result = FALSE)
+  count_cells = table(factor(m$List_sampled_cluster,levels = unique(colLabels(sce))))
+  count_cells = count_cells/sum(count_cells)
+  Random_sampling = rbind(Random_sampling,count_cells)
+}
+Random_sampling = Random_sampling * 100
+
+Mean_random = colMeans(Random_sampling)
+Var_random = apply(Random_sampling,MARGIN = 2,FUN = var)
+
 ```
 
-
-## Estimating the contribution of each stratum to global cell composition (optional)
-
-We now need to know what is the proportion of cells in each stratum to correctly infer the global cell composition. One solution is to use the area of each individual stratum, however due to the un-even cell density across strata we recommend to use a nuclear channel (DAPI, Histone, Iridium...) and compute the total signal. Here we will use the Histone antibody signal : 
+Finally we can compute the log2 variance ratio between random and stratified sampling :
 
 ```r
-#Loading the image of the nuclear channel
-H3K9_image = readTIFF("./data/Smoothed_image_H3K9ac.tiff")
-H3K9_image = as.cimg(H3K9_image)
-H3K9_image= imrotate(H3K9_image,angle = -90)
-
-#Summing the signal 
-H3K9ac_stratum_signal = aggregate(as.numeric(H3K9_image),FUN = sum,by=list(as.numeric(MVS_thresholded_image)))
-H3K9ac_stratum_signal = H3K9ac_stratum_signal$x
-H3K9ac_stratum_signal_normalised = H3K9ac_stratum_signal/sum(H3K9ac_stratum_signal)
+Var_ratio = apply(Var_population_estimation,MARGIN = 1,FUN = function(x) {log2(x/Var_random)})
+Var_ratio_mean  = apply(Var_ratio,MARGIN = 2,FUN = mean)
 ```
+The obtained matrix can be interpretated as following: negative values corresponds to a lower variance using stratified sampling compared to random sampling and thus stratified sampling is more efficient than random sampling.
 
-
-## Performing a proportional stratified sampling 
-
-We can now perform the stratified sampling. We will sample in total 10 Field of Views (FoVs) with a width of 100µm. The number of FoV assigned to each stratum will be proportional to the contribution of each stratum, thus corresponding to a proportional stratified sampling.
+Finally we can visualize the efficiency of the stratified sampling for each cell type and for each marker used :
 
 ```r
-N_FoV_per_region = c(1,2,4,1,1,1) #1 Fov for the first stratum, 2 for the second, 4 for the third etc...
-Prop_allocation_sampling = Stratified_sampling(Thresholded_image = MVS_thresholded_image,sce = sce,N_FoV_per_region =N_FoV_per_region ,FoV_size = 100,N_sampling = 10 ,Weight_strata =H3K9ac_stratum_signal_normalised)
+library(pheatmap)
+pheatmap(-Var_ratio_mean,clustering_method = "ward",scale = "none")
 ```
-
-The function should generate a boxplot where the distribution of cell density estimates are shown for each cell type. In addition, the red dots corresponds to the real cell density.
-
-<img src="Screenshot/Stratified_sampling_estimation.png" alt="Stratified_sampling_estimation" width='400'> 
-
-
